@@ -10,12 +10,12 @@
         /* --- CSS VARIABLES & RESET --- */
         :root {
             --bg-color: #020c1b;
-            --card-bg: rgba(17, 34, 64, 0.9);
+            --card-bg: rgba(17, 34, 64, 0.95); /* Slightly darker for readability */
             --neon-blue: #00f2ff;
             --neon-green: #00ff9d;
             --gold: #ffd700;
             --silver-gradient: linear-gradient(135deg, #e0e0e0 0%, #909090 50%, #ffffff 100%);
-            --text-gray: #8892b0;
+            --text-gray: #a8b2d1;
         }
 
         html { scroll-behavior: smooth; }
@@ -122,22 +122,28 @@
             background: var(--silver-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* --- HOW TO BUY STEPS --- */
+        /* --- HOW TO BUY STEPS (UPDATED TEXT ONLY) --- */
         .step-card {
-            background: var(--card-bg); padding: 25px; border-radius: 10px; border: 1px solid #333;
-            margin-bottom: 30px; position: relative; border-left: 4px solid var(--neon-green);
+            background: var(--card-bg); padding: 35px; border-radius: 15px; border: 1px solid #444;
+            margin-bottom: 30px; position: relative; border-left: 5px solid var(--neon-green);
         }
         .step-number {
-            position: absolute; top: -15px; left: -15px; background: var(--neon-green); color: black;
-            width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; font-weight: bold;
-            display: flex; align-items: center; justify-content: center; border: 2px solid white;
-            box-shadow: 0 0 10px var(--neon-green);
+            position: absolute; top: -20px; left: -20px; background: var(--neon-green); color: black;
+            width: 50px; height: 50px; border-radius: 50%; font-size: 1.5rem; font-weight: bold;
+            display: flex; align-items: center; justify-content: center; border: 3px solid white;
+            box-shadow: 0 0 15px var(--neon-green);
         }
         .step-title {
-            color: var(--neon-green); font-size: 1.3rem; margin-bottom: 10px;
-            text-transform: uppercase; font-weight: bold; margin-left: 15px;
+            color: var(--neon-green); font-size: 1.5rem; margin-bottom: 20px;
+            text-transform: uppercase; font-weight: 800; margin-left: 25px;
         }
-        .step-desc { font-size: 1rem; color: #ccc; line-height: 1.5; margin-left: 15px; text-align: left; }
+        .step-desc { font-size: 1.1rem; color: #d1d5db; line-height: 1.8; margin-left: 25px; text-align: left; }
+        
+        .important-note {
+            background: rgba(255, 0, 0, 0.1); border: 1px solid red; color: #ffcccc;
+            padding: 10px; border-radius: 5px; margin-top: 15px; font-size: 0.9rem;
+        }
+        .highlight { color: var(--gold); font-weight: bold; }
 
         /* --- SOCIAL & BUY --- */
         .social-grid { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 25px; }
@@ -196,6 +202,8 @@
             .target-text { font-size: 1.5rem; }
             .price-value { font-size: 1.8rem; }
             .buy-btn { width: 90%; font-size: 1.3rem; }
+            .step-desc { margin-left: 0; font-size: 1rem; }
+            .step-title { margin-left: 0; }
         }
     </style>
 </head>
@@ -297,21 +305,31 @@
             <div class="step-number">1</div>
             <div class="step-title">Create MetaMask Wallet</div>
             <div class="step-desc">
-                Download the <strong>MetaMask App</strong>. Create a new wallet and save your phrase.
-                <div class="video-box" style="margin-top: 20px;">
-                    <iframe src="https://www.youtube.com/embed/wT8pQJ9tVfw" frameborder="0" allowfullscreen></iframe>
+                <ul>
+                    <li>Download the <strong>MetaMask App</strong> from the App Store or Play Store.</li>
+                    <li>Open the app and click "Create a new wallet".</li>
+                    <li><span class="highlight">Write down your 12-word Secret Recovery Phrase</span> on a piece of paper.</li>
+                    <li>Set a strong password.</li>
+                </ul>
+                <div class="important-note">
+                    ⚠️ <strong>WARNING:</strong> Never share your 12-word phrase with anyone. If you lose it, you lose your funds forever.
                 </div>
             </div>
         </div>
 
         <div class="step-card">
             <div class="step-number">2</div>
-            <div class="step-title">Buy BNB on Binance</div>
+            <div class="step-title">Get BNB (Smart Chain)</div>
             <div class="step-desc">
-                Buy <strong>BNB (Smart Chain)</strong> on Binance and send it to your MetaMask address.
-                <div class="video-box" style="margin-top: 20px;">
-                    <iframe src="https://www.youtube.com/embed/2_C6mD9d-qQ" frameborder="0" allowfullscreen></iframe>
-                </div>
+                To buy AISLV, you need <strong>BNB</strong> cryptocurrency.
+                <ul>
+                    <li>Go to any exchange like <strong>Binance, Bybit, or Bitget</strong>.</li>
+                    <li>Buy <strong>BNB</strong> using your local currency.</li>
+                    <li>Go to 'Withdraw' section and select <strong>BNB</strong>.</li>
+                    <li>Paste your MetaMask Wallet Address (starts with 0x...).</li>
+                    <li><span class="highlight">Select Network: BEP-20 (BSC).</span> This is very important!</li>
+                    <li>Confirm withdrawal. Your BNB will arrive in MetaMask in 2 minutes.</li>
+                </ul>
             </div>
         </div>
 
@@ -319,9 +337,20 @@
             <div class="step-number">3</div>
             <div class="step-title">Swap on PancakeSwap</div>
             <div class="step-desc">
-                Go to the "Live Rate" section below, click 'Buy Now', connect wallet, and Swap BNB for AISLV.
-                <div class="video-box" style="margin-top: 20px;">
-                    <iframe src="https://www.youtube.com/embed/gK8w_vJjJt8" frameborder="0" allowfullscreen></iframe>
+                Now convert your BNB into AISLV Tokens.
+                <ul>
+                    <li>Click the <strong>"BUY NOW ON PANCAKESWAP"</strong> button below.</li>
+                    <li>Connect your MetaMask Wallet.</li>
+                    <li>Paste the AI SILVER Contract Address: <br>
+                        <span style="color: var(--neon-blue); font-family: monospace;">0xE74dc0bD079c28D9C26aceBf8CF4af1dDA5BAa9C</span>
+                    </li>
+                    <li>Click "Import Token".</li>
+                    <li>Enter the amount of BNB you want to spend.</li>
+                    <li><span class="highlight">Set Slippage to 1% - 5%</span> (Click the gear icon ⚙️ to change slippage).</li>
+                    <li>Click <strong>SWAP</strong> and confirm in your wallet.</li>
+                </ul>
+                <div style="margin-top: 20px; color: var(--neon-green); font-weight: bold;">
+                    ✅ Congratulations! You are now a holder of AI SILVER.
                 </div>
             </div>
         </div>
