@@ -10,7 +10,7 @@
         /* --- CSS VARIABLES & RESET --- */
         :root {
             --bg-color: #020c1b;
-            --card-bg: rgba(17, 34, 64, 0.8);
+            --card-bg: rgba(17, 34, 64, 0.9);
             --neon-blue: #00f2ff;
             --neon-green: #00ff9d;
             --gold: #ffd700;
@@ -44,17 +44,17 @@
             backdrop-filter: blur(10px);
         }
         .nav-container {
-            max-width: 1100px; margin: 0 auto; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;
+            max-width: 1100px; margin: 0 auto; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; padding: 0 10px;
         }
         nav a {
-            color: #ccd6f6; text-decoration: none; font-size: 1.1rem; text-transform: uppercase;
-            font-weight: bold; letter-spacing: 1px; transition: 0.3s;
+            color: #ccd6f6; text-decoration: none; font-size: 1rem; text-transform: uppercase;
+            font-weight: bold; letter-spacing: 1px; transition: 0.3s; margin: 5px;
         }
         nav a:hover { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
 
         /* --- CONTAINER --- */
         .section-container {
-            max-width: 1000px; margin: 0 auto; padding: 80px 20px;
+            max-width: 1000px; margin: 0 auto; padding: 60px 20px;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
@@ -62,22 +62,22 @@
         h1, h2, .metallic-text {
             background: var(--silver-gradient); -webkit-background-clip: text;
             -webkit-text-fill-color: transparent; text-transform: uppercase;
-            letter-spacing: 2px; font-weight: 800; text-align: center; margin-bottom: 40px;
+            letter-spacing: 2px; font-weight: 800; text-align: center; margin-bottom: 30px;
         }
-        h2 { font-size: 2.5rem; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h3 { font-size: 1.5rem; margin-bottom: 10px; font-weight: bold; }
-        p { line-height: 1.8; color: var(--text-gray); font-size: 1.1rem; text-align: center; }
+        h2 { font-size: 2rem; text-shadow: 0 5px 20px rgba(0,0,0,0.5); }
+        h3 { font-size: 1.3rem; margin-bottom: 10px; font-weight: bold; }
+        p { line-height: 1.6; color: var(--text-gray); font-size: 1rem; text-align: center; }
 
         /* --- HERO SECTION --- */
-        .hero { text-align: center; padding: 100px 20px; }
+        .hero { text-align: center; padding: 80px 20px; }
         .logo-img {
-            width: 200px; height: 200px; border: 5px solid #c0c0c0; border-radius: 50%;
-            object-fit: cover; box-shadow: 0 0 40px var(--neon-blue); margin-bottom: 30px; background: #000;
+            width: 150px; height: 150px; border: 4px solid #c0c0c0; border-radius: 50%;
+            object-fit: cover; box-shadow: 0 0 30px var(--neon-blue); margin-bottom: 20px; background: #000;
         }
-        .hero h1 { font-size: 4rem; margin: 0; line-height: 1.1; }
-        .hero .tagline { font-size: 1.5rem; color: var(--neon-blue); letter-spacing: 4px; margin-top: 10px; font-weight: bold; }
+        .hero h1 { font-size: 3rem; margin: 0; line-height: 1.1; }
+        .hero .tagline { font-size: 1.2rem; color: var(--neon-blue); letter-spacing: 2px; margin-top: 10px; font-weight: bold; }
         .hero .godfather {
-            font-size: 2rem; color: #fff; text-transform: uppercase; font-weight: 900;
+            font-size: 1.5rem; color: #fff; text-transform: uppercase; font-weight: 900;
             text-shadow: 0 0 20px var(--neon-blue); margin-top: 20px; display: inline-block;
             border-bottom: 3px solid var(--neon-blue); padding-bottom: 5px;
         }
@@ -85,24 +85,311 @@
         /* --- MARQUEE --- */
         .marquee-strip {
             background: linear-gradient(90deg, #000, #111); border-top: 2px solid var(--neon-blue); border-bottom: 2px solid var(--neon-blue);
-            color: white; padding: 10px 0; overflow: hidden; white-space: nowrap; margin: 0;
+            color: white; padding: 8px 0; overflow: hidden; white-space: nowrap; margin: 0;
         }
         .marquee-content {
             display: inline-block; padding-left: 100%; animation: marquee 20s linear infinite;
-            font-family: monospace; font-size: 1.2rem; color: var(--neon-green);
+            font-family: monospace; font-size: 1rem; color: var(--neon-green);
         }
         @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
         /* --- GALLERY & VIDEO --- */
-        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 30px; }
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-top: 30px; }
         .gallery img {
-            width: 100%; height: 220px; object-fit: cover; border-radius: 10px;
+            width: 100%; height: 200px; object-fit: cover; border-radius: 10px;
             border: 1px solid #333; transition: 0.3s; filter: grayscale(30%);
         }
         .gallery img:hover { transform: scale(1.05); border-color: var(--neon-blue); filter: grayscale(0%); z-index: 10; }
 
         .video-box {
             position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+            border: 2px solid #333; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        /* --- CARDS & CONTENT --- */
+        .content-card {
+            background: var(--card-bg); padding: 30px; border-radius: 10px;
+            border-left: 4px solid var(--neon-blue); margin-bottom: 25px; text-align: left;
+        }
+        .target-box {
+            background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(20,20,20,0.9));
+            border: 1px solid #555; padding: 30px; margin: 30px 0; text-align: center;
+            box-shadow: 0 0 20px rgba(192,192,192,0.1); position: relative; overflow: hidden;
+        }
+        .target-text {
+            font-size: 1.8rem; font-family: 'Times New Roman', serif; font-style: italic;
+            background: var(--silver-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* --- HOW TO BUY STEPS --- */
+        .step-card {
+            background: var(--card-bg); padding: 25px; border-radius: 10px; border: 1px solid #333;
+            margin-bottom: 30px; position: relative; border-left: 4px solid var(--neon-green);
+        }
+        .step-number {
+            position: absolute; top: -15px; left: -15px; background: var(--neon-green); color: black;
+            width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; font-weight: bold;
+            display: flex; align-items: center; justify-content: center; border: 2px solid white;
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+        .step-title {
+            color: var(--neon-green); font-size: 1.3rem; margin-bottom: 10px;
+            text-transform: uppercase; font-weight: bold; margin-left: 15px;
+        }
+        .step-desc { font-size: 1rem; color: #ccc; line-height: 1.5; margin-left: 15px; text-align: left; }
+
+        /* --- SOCIAL & BUY --- */
+        .social-grid { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 25px; }
+        .social-icon {
+            color: white; font-size: 2rem; width: 60px; height: 60px;
+            display: flex; align-items: center; justify-content: center; border-radius: 50%;
+            background: rgba(255,255,255,0.05); border: 1px solid #333; transition: 0.3s; text-decoration: none;
+        }
+        .social-icon:hover {
+            background: var(--neon-blue); color: #000; box-shadow: 0 0 20px var(--neon-blue); transform: translateY(-5px);
+        }
+
+        .price-row { display: flex; justify-content: center; gap: 20px; margin: 30px 0; flex-wrap: wrap; }
+        .price-card {
+            background: rgba(10, 25, 47, 0.95); border: 1px solid #333; padding: 20px;
+            border-radius: 10px; flex: 1; min-width: 250px; text-align: center;
+        }
+        .price-card.live { border-color: var(--neon-green); box-shadow: 0 0 15px rgba(0, 255, 157, 0.1); }
+        .price-label { font-size: 0.9rem; color: #8892b0; letter-spacing: 1px; margin-bottom: 5px; text-transform: uppercase; }
+        .price-value { font-size: 2rem; font-weight: bold; color: white; font-family: monospace; }
+        .live-value { color: var(--neon-green); }
+        
+        .blink-dot {
+            height: 10px; width: 10px; background-color: var(--neon-green); border-radius: 50%;
+            display: inline-block; margin-left: 5px; animation: blink 1.5s infinite;
+        }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.2; } 100% { opacity: 1; } }
+
+        .buy-btn {
+            background: var(--silver-gradient); color: #000; padding: 20px 40px; width: 80%;
+            font-size: 1.5rem; text-decoration: none; border-radius: 5px; font-weight: 900;
+            display: inline-block; margin-top: 25px; box-shadow: 0 0 20px var(--neon-green);
+            transition: 0.3s; text-transform: uppercase; border: 2px solid white;
+        }
+        .buy-btn:hover {
+            transform: scale(1.05); background: var(--neon-green); border-color: var(--neon-green);
+            box-shadow: 0 0 40px var(--neon-green);
+        }
+
+        .contract-box {
+            font-family: monospace; background: rgba(0,0,0,0.8); padding: 15px;
+            color: var(--neon-blue); margin-top: 30px; border: 1px dashed #555;
+            word-break: break-all; display: inline-block; border-radius: 10px; font-size: 0.9rem;
+        }
+
+        footer { text-align: center; padding: 40px 20px; color: #555; font-size: 0.8rem; border-top: 1px solid #222; margin-top: 40px;}
+
+        /* --- MOBILE RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 1.8rem; }
+            .hero { padding: 60px 20px; }
+            .logo-img { width: 120px; height: 120px; }
+            .nav-container { gap: 10px; }
+            nav a { font-size: 0.8rem; padding: 5px; }
+            .target-text { font-size: 1.5rem; }
+            .price-value { font-size: 1.8rem; }
+            .buy-btn { width: 90%; font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#vision">Vision</a>
+            <a href="#howtobuy" style="color: var(--neon-green);">How to Buy</a>
+            <a href="#buy">Live Rate</a>
+        </div>
+    </nav>
+
+    <div class="trading-bg">
+        <svg viewBox="0 0 1000 600" preserveAspectRatio="none" style="width: 100%; height: 100%;">
+            <path class="chart-line" d="M0,500 L50,480 L100,510 L150,450 L200,470 L250,400 L300,420 L350,350 L400,380 L450,300 L500,320 L550,250 L600,280 L650,200 L700,220 L750,150 L800,180 L850,100 L900,120 L950,50 L1000,0 V600 H0 Z" />
+        </svg>
+    </div>
+
+    <section id="home" class="hero">
+        <img src="logo.png" alt="AI Silver Logo" class="logo-img">
+        <h1>AI SILVER</h1>
+        <div class="tagline">WEALTH AI MANAGEMENT</div>
+        <div class="godfather">THE GODFATHER OF CRYPTO</div>
+    </section>
+
+    <div class="marquee-strip">
+        <div class="marquee-content">
+            AI SILVER (AISLV) /// BORN TO RULE /// WEALTH AI MANAGEMENT /// LIMITED SUPPLY: 4.3M /// HIGHEST GROWTH POTENTIAL ///
+        </div>
+    </div>
+
+    <div class="section-container">
+        <h2>MEDIA GALLERY</h2>
+        <div class="gallery">
+            <img src="img1.jpg" alt="Chart">
+            <img src="img2.jpg" alt="Bull">
+            <img src="img3.jpg" alt="AI">
+        </div>
+        
+        <h2 style="margin-top: 50px;">PROJECT TRAILER</h2>
+        <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/ZfKzEzqT3Ho" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <section id="about" class="section-container">
+        <h2>ABOUT THE GODFATHER</h2>
+        <div class="content-card">
+            <p style="text-align: left; color: #fff; font-size: 1.1rem;">
+                <strong>AI SILVER (AISLV)</strong> is not just a token; it is a legacy. While the market trembles with volatility, we introduce a new era of dominance.
+                <br><br>
+                As global silver prices skyrocket, AISLV is engineered to ride this wave with unmatched speed. Our proprietary <strong>Wealth AI Management</strong> system analyzes market data to maximize growth.
+            </p>
+        </div>
+
+        <h3>JOIN OUR EMPIRE</h3>
+        <div class="social-grid">
+            <a href="https://www.facebook.com/share/1829AphEUb/" class="social-icon" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/aisilver_crypto?igsh=MWk1aDlqNGN0ZG53ZQ%3D%3D&utm_source=qr" class="social-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://x.com/aisilvercrypto" class="social-icon" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.threads.com/@aisilver_crypto" class="social-icon" title="Threads"><i class="fa-brands fa-threads"></i></a>
+            <a href="https://www.linkedin.com/in/ai-silver-923373394?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://youtube.com/@aisilver_crypto?si=0ZDO6I4NxPsaftr7" class="social-icon" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+    </section>
+
+    <section id="vision" class="section-container">
+        <h2>OUR VISION</h2>
+        
+        <div class="target-box">
+            <div style="font-size: 3rem; margin-bottom: 15px;">✒️</div>
+            <p style="color: #aaa; letter-spacing: 2px; text-transform: uppercase;">Our Ultimate Target</p>
+            <div class="target-text">"Born to Rule the Whole Crypto Market."</div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+            <div class="content-card" style="text-align: center; border-left: none; border-top: 4px solid var(--gold);">
+                <h3 style="color: var(--gold);">WEALTH AI</h3>
+                <p>Algorithms designed to outperform the silver market.</p>
+            </div>
+            <div class="content-card" style="text-align: center; border-left: none; border-top: 4px solid var(--neon-blue);">
+                <h3 style="color: var(--neon-blue);">SCARCITY</h3>
+                <p>Only 4.3 Million AISLV ever created. Digital Silver.</p>
+            </div>
+            <div class="content-card" style="text-align: center; border-left: none; border-top: 4px solid var(--neon-green);">
+                <h3 style="color: var(--neon-green);">DOMINANCE</h3>
+                <p>We don't compete. We lead the revolution.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="howtobuy" class="section-container">
+        <h2>HOW TO BUY GUIDE</h2>
+
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <div class="step-title">Create MetaMask Wallet</div>
+            <div class="step-desc">
+                Download the <strong>MetaMask App</strong>. Create a new wallet and save your phrase.
+                <div class="video-box" style="margin-top: 20px;">
+                    <iframe src="https://www.youtube.com/embed/afp_8-1oZ-E" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <div class="step-title">Buy BNB on Binance</div>
+            <div class="step-desc">
+                Buy <strong>BNB (Smart Chain)</strong> on Binance and send it to your MetaMask address.
+                <div class="video-box" style="margin-top: 20px;">
+                    <iframe src="https://www.youtube.com/embed/Q5U2Z5G_hfc" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <div class="step-title">Swap on PancakeSwap</div>
+            <div class="step-desc">
+                Go to the "Live Rate" section below, click 'Buy Now', connect wallet, and Swap BNB for AISLV.
+                <div class="video-box" style="margin-top: 20px;">
+                    <iframe src="https://www.youtube.com/embed/1w0rM3n4i1Y" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="buy" class="section-container">
+        <h2>LIVE MARKET DATA</h2>
+        
+        <div class="price-row">
+            <div class="price-card">
+                <div class="price-label">OFFICIAL LAUNCH PRICE</div>
+                <div class="price-value" style="color: #bbb;">₹0.0024</div>
+            </div>
+
+            <div class="price-card live">
+                <div class="price-label">LIVE CURRENT PRICE <span class="blink-dot"></span></div>
+                <div class="price-value live-value" id="price-inr">Loading...</div>
+                <div style="color: #888; font-size: 0.9rem;" id="price-usd">Fetching...</div>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="https://pancakeswap.finance/swap?outputCurrency=0xE74dc0bD079c28D9C26aceBf8CF4af1dDA5BAa9C" class="buy-btn" target="_blank">
+                BUY NOW ON PANCAKESWAP
+            </a>
+            
+            <br>
+            <div class="contract-box">
+                Official Contract: 0xE74dc0bD079c28D9C26aceBf8CF4af1dDA5BAa9C
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2025 AI SILVER FOUNDATION. ALL RIGHTS RESERVED. <br>
+        THE GODFATHER OF CRYPTO.
+    </footer>
+
+    <script>
+        const tokenAddress = '0xE74dc0bD079c28D9C26aceBf8CF4af1dDA5BAa9C';
+        const usdToInr = 87.0; 
+        
+        async function fetchPrice() {
+            try {
+                const response = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${tokenAddress}`);
+                const data = await response.json();
+                
+                if (data.pairs && data.pairs.length > 0) {
+                    const priceUsd = parseFloat(data.pairs[0].priceUsd);
+                    const priceInr = priceUsd * usdToInr;
+                    
+                    document.getElementById('price-inr').innerText = '₹' + priceInr.toFixed(5);
+                    document.getElementById('price-usd').innerText = '$' + priceUsd.toFixed(8);
+                } else {
+                    document.getElementById('price-inr').innerText = "₹0.0024"; 
+                    document.getElementById('price-usd').innerText = "No Data";
+                }
+            } catch (error) {
+                console.error("Error fetching price:", error);
+            }
+        }
+        
+        fetchPrice(); 
+        setInterval(fetchPrice, 5000); 
+    </script>
+
+</body>
+</html>
             border: 2px solid #333; border-radius: 15px; box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
         .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
