@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Silver - Secure Login</title>
+    <style>
+        /* आपकी पुरानी थीम के अनुसार डार्क डिज़ाइन */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0b0f19; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background: #151a28; padding: 35px 30px; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.8); width: 100%; max-width: 380px; text-align: center; border: 1px solid #1fc7d4; }
+        h2 { color: #1fc7d4; margin-bottom: 25px; font-size: 24px; }
+        p { color: #a0a5b1; font-size: 14px; margin-bottom: 20px; line-height: 1.5; }
+        input { width: 90%; padding: 14px; margin: 12px 0; border-radius: 8px; border: 1px solid #2a3143; font-size: 16px; background: #0b0f19; color: white; outline: none; }
+        input:focus { border-color: #1fc7d4; }
+        .btn { background: #1fc7d4; color: #0b0f19; padding: 14px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 15px; transition: 0.3s; }
+        .btn:hover { background: #17a2b8; box-shadow: 0 0 10px #1fc7d4; }
+        
+        /* Google Button Style */
+        .google-btn { background: white; color: #333; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .google-btn:hover { background: #f1f1f1; box-shadow: none; }
+        .google-icon { width: 20px; height: 20px; }
+
+        #message { margin-top: 15px; font-size: 14px; font-weight: bold; }
+        #recaptcha-container { margin-top: 15px; display: flex; justify-content: center; }
+    </style>
+</head>
+<body>
+
+    <!-- स्टेप 1: Google (Gmail) लॉगिन फॉर्म -->
+    <div class="container" id="googleForm">
+        <h2>AI Silver में आपका स्वागत है</h2>
+        <p>अपने सुरक्षित डैशबोर्ड तक पहुँचने के लिए अपनी Gmail आईडी से लॉग इन करें।</p>
+        
+        <button class="btn google-btn" onclick="signInWithGmail()">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" class="google-icon">
+            Continue with Google
+        </button>
+        <p id="googleMessage" id="message"></p>
+    </div>
+
+    <!-- स्टेप 2: मोबाइल नंबर फॉर्म -->
+    <div class="container" id="mobileForm" style="display: none;">
+        <h2>मोबाइल वेरिफिकेशन</h2>
+        <p>सिक्योरिटी के लिए कृपया अपना 10-अंकों का मोबाइल नंबर दर्ज करें। (एक नंबर से एक ही अकाउंट बनेगा)</p>
+        
+        <input type="tel" id="mobileInput" placeholder="मोबाइल नंबर डालें" maxlength="10">
+        <div id="recaptcha-container"></div>
+        
+        <button class="btn" onclick="sendOTP()">Send OTP</button>
+        <p id="mobileMessage" id="message"></p>
+    </div>
+
+    <!-- स्टेप 3: OTP फॉर्म -->
+    <div class="container" id="otpForm" style="display: none;">
+        <h2>OTP दर्ज करें</h2>
+        <p>आपके मोबाइल नंबर पर 6-अंकों का सुरक्षित कोड भेजा गया है।</p>
+        
+        <input type="text" id="otpInput" placeholder="6-अंकों का OTP डालें" maxlength="6">
+        <button class="btn" onclick="verifyOTP()">Verify & Login</button>
+        <p id="otpMessage" id="message"></p>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, RecaptchaVerifier, linkWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDwNqD649Uq4hLUSMDTESnsg5SfDFeBBac",
+            authDomain: "ai-silver-d7bcf.firebaseapp.com",
+            projectId: "ai-silver-d7bcf",
+            storageBucket: "ai-silver-d7bcf.firebasestorage.app",
+            messagingSenderId: "68520283863",
+            appId: "1:68520283863:web:243bbd87a0728ee984aa92",
+            measurementId: "G-2410NYZ2WN"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        let currentUser = null;
+
+        // 1. Gmail से लॉग इन करना
+        window.signInWithGmail = async function() {
+            const msgBox = document.getElementById("googleMessage");
+            msgBox.style.color = "white";
+            msgBox.innerText = "Google से कनेक्ट हो रहा है...";
+            
+            try {
+                const result = await signInWithPopup(auth, provider);
+                currentUser = result.user;
+                
+                // चेक करें कि क्या यूज़र का मोबाइल नंबर पहले से लिंक है
+                if (currentUser.phoneNumber) {
+                    msgBox.style.color = "#1fc7d4";
+                    msgBox.innerText = "लॉग इन सफल! डैशबोर्ड खुल रहा है...";
+                    setTimeout(() => { window.location.href = "dashboard.html"; }, 1500);
+                } else {
+                    // अगर मोबाइल लिंक नहीं है, तो अगला बॉक्स दिखाएं
+                    document.getElementById("googleForm").style.display = "none";
+                    document.getElementById("mobileForm").style.display = "block";
+                }
+            } catch (error) {
+                msgBox.style.color = "#ff4d4d";
+                msgBox.innerText = "त्रुटि: लॉग इन पूरा नहीं हुआ।";
+            }
+        };
+
+        // Recaptcha सेटअप
+        window.setupRecaptcha = function() {
+            if (!window.recaptchaVerifier) {
+                window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                    'size': 'normal',
+                    'callback': (response) => {}
+                });
+            }
+        };
+
+        // 2. OTP भेजना
+        window.sendOTP = async function() {
+            const mobile = document.getElementById("mobileInput").value;
+            const msgBox = document.getElementById("mobileMessage");
+            
+            if(mobile.length !== 10) {
+                msgBox.style.color = "#ff4d4d";
+                msgBox.innerText = "कृपया सही 10 अंकों का नंबर डालें।";
+                return;
+            }
+
+            msgBox.style.color = "white";
+            msgBox.innerText = "OTP भेजा जा रहा है...";
+            window.setupRecaptcha();
+            
+            const phoneNumber = "+91" + mobile;
+
+            try {
+                // यहाँ हम नंबर को Gmail अकाउंट से लिंक कर रहे हैं
+                const confirmationResult = await linkWithPhoneNumber(currentUser, phoneNumber, window.recaptchaVerifier);
+                window.confirmationResult = confirmationResult;
+                
+                // फॉर्म बदलें
+                document.getElementById("mobileForm").style.display = "none";
+                document.getElementById("otpForm").style.display = "block";
+            } catch (error) {
+                msgBox.style.color = "#ff4d4d";
+                // आपका खास नियम: अगर नंबर पहले से इस्तेमाल हुआ है
+                if (error.code === 'auth/credential-already-in-use') {
+                    msgBox.innerText = "❌ यह मोबाइल नंबर पहले से किसी अन्य अकाउंट के साथ रजिस्टर्ड है!";
+                } else {
+                    msgBox.innerText = "त्रुटि: OTP नहीं जा सका। " + error.message;
+                }
+            }
+        };
+
+        // 3. OTP वेरीफाई करना और डेटाबेस में सेव करना
+        window.verifyOTP = async function() {
+            const otpCode = document.getElementById("otpInput").value;
+            const msgBox = document.getElementById("otpMessage");
+            
+            msgBox.style.color = "white";
+            msgBox.innerText = "वेरीफाई किया जा रहा है...";
+            
+            try {
+                await window.confirmationResult.confirm(otpCode);
+                
+                // पहली बार आने पर डेटाबेस में यूज़र का डेटा बनाना (₹2100 वाला सिस्टम चालू करने के लिए)
+                const userRef = doc(db, "users", currentUser.uid);
+                const docSnap = await getDoc(userRef);
+                
+                if (!docSnap.exists()) {
+                    await setDoc(userRef, {
+                        fullName: currentUser.displayName,
+                        email: currentUser.email,
+                        mobile: currentUser.phoneNumber,
+                        isActivated: false, // शुरुआत में अकाउंट डी-एक्टिवेट रहेगा
+                        balanceAISLV: 0,
+                        referralCount: 0,
+                        joinedAt: new Date()
+                    });
+                }
+                
+                msgBox.style.color = "#1fc7d4";
+                msgBox.innerText = "सफलतापूर्वक वेरीफाई हो गया! डैशबोर्ड खुल रहा है...";
+                setTimeout(() => { window.location.href = "dashboard.html"; }, 1500);
+            } catch (error) {
+                msgBox.style.color = "#ff4d4d";
+                msgBox.innerText = "❌ गलत OTP। कृपया दोबारा प्रयास करें।";
+            }
+        };
+    </script>
+</body>
+</html>
